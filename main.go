@@ -1,10 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gsnsg/tinyurl-go/cache"
 )
 
 func handleStartPath(c *gin.Context) {
@@ -12,5 +12,6 @@ func handleStartPath(c *gin.Context) {
 }
 
 func main() {
-	cache.InitializeCacheService()
+
+	fmt.Println("Firing up server....")
 }

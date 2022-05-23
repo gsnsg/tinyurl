@@ -3,8 +3,8 @@ package cache
 import (
 	"errors"
 	"fmt"
-	"time"
 
+	"github.com/gsnsg/tinyurl-go/constants"
 	"github.com/go-redis/redis"
 )
 
@@ -16,12 +16,9 @@ var (
 	cacheService = &CacheService{}
 )
 
-const redisAddr = "localhost:6379"
-const cacheDuation = 6 * time.Hour
-
 func InitializeCacheService() *CacheService {
 	redisClient := redis.NewClient(&redis.Options{
-		Addr:     redisAddr,
+		Addr:     constants.RedisAddr,
 		Password: "",
 		DB:       0,
 	})
@@ -41,7 +38,7 @@ func IsPresentInCache(url string) bool {
 }
 
 func SaveUrlMapping(originalUrl string, shortUrl string) error {
-	err := cacheService.client.Set(shortUrl, originalUrl, cacheDuation).Err()
+	err := cacheService.client.Set(shortUrl, originalUrl, constants.RedisCacheDuration).Err()
 	if err != nil {
 		return errors.New("error saving key-value to redis")
 	}
