@@ -14,8 +14,8 @@ struct AllMappingsView: View {
     ]) var mappings: FetchedResults<UrlMapping>
     
     var body: some View {
-        VStack {
-            ForEach(mappings, id: \.timestamp) { mapping  in
+        VStack(alignment: .leading) {
+            List(mappings) { mapping  in
                 if let shortUrl = mapping.shortUrl,
                    let longUrl = mapping.longUrl,
                    let timestamp = mapping.timestamp {
@@ -23,7 +23,9 @@ struct AllMappingsView: View {
                         .padding(.vertical, 10)
                 }
             }
+            .listStyle(GroupedListStyle())
         }
+        .padding(.horizontal, 10)
         Spacer()
     }
 }
@@ -35,24 +37,21 @@ struct RowView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Short Link")
+            Text("Short Link").fontWeight(.semibold)
             Link(destination: URL(string: shortUrl)!) {
                 Text(shortUrl)
             }.padding(.bottom, 10)
-            Text("Original Link")
+            Text("Original Link").fontWeight(.semibold).lineLimit(1)
             Link(destination: URL(string: longUrl)!) {
                 Text(longUrl)
             }.padding(.bottom, 10)
             Text("Created at: \(formattedDate(date: createdAt))")
         }
-        .padding()
-        .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.blue, lineWidth: 1))
     }
     
     private func formattedDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-        print("Date Date: ", formatter.string(from: date))
         return formatter.string(from: date)
     }
 }
