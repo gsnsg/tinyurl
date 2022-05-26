@@ -3,6 +3,7 @@ package dbservice
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/gsnsg/tinyurl-go/constants"
 	_ "github.com/lib/pq"
@@ -20,7 +21,7 @@ func InitializeDB() *sql.DB {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Println("DB Initialized")
+	log.Println("DB Initialized")
 	dbService.db = db
 	return db
 }
