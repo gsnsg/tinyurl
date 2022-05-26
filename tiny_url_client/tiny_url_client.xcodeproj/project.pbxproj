@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		172C3CD9283FB3DA00DBED95 /* AllMappingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172C3CD8283FB3DA00DBED95 /* AllMappingsView.swift */; };
 		17CDDDE3283F97410045A174 /* tiny_url_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CDDDE2283F97410045A174 /* tiny_url_clientApp.swift */; };
 		17CDDDE5283F97410045A174 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CDDDE4283F97410045A174 /* ContentView.swift */; };
 		17CDDDE7283F97430045A174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17CDDDE6283F97430045A174 /* Assets.xcassets */; };
@@ -17,7 +18,6 @@
 		17CDDE03283F97430045A174 /* tiny_url_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CDDE02283F97430045A174 /* tiny_url_clientUITests.swift */; };
 		17CDDE05283F97430045A174 /* tiny_url_clientUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CDDE04283F97430045A174 /* tiny_url_clientUITestsLaunchTests.swift */; };
 		17CDDE12283F9E480045A174 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CDDE11283F9E480045A174 /* ContentViewModel.swift */; };
-		17CDDE15283FAB110045A174 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CDDE14283FAB110045A174 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		172C3CD8283FB3DA00DBED95 /* AllMappingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMappingsView.swift; sourceTree = "<group>"; };
 		17CDDDDF283F97410045A174 /* tiny_url_client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tiny_url_client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17CDDDE2283F97410045A174 /* tiny_url_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiny_url_clientApp.swift; sourceTree = "<group>"; };
 		17CDDDE4283F97410045A174 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,7 +52,6 @@
 		17CDDE02283F97430045A174 /* tiny_url_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiny_url_clientUITests.swift; sourceTree = "<group>"; };
 		17CDDE04283F97430045A174 /* tiny_url_clientUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiny_url_clientUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		17CDDE11283F9E480045A174 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
-		17CDDE14283FAB110045A174 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				17CDDDE2283F97410045A174 /* tiny_url_clientApp.swift */,
-				17CDDE14283FAB110045A174 /* StorageManager.swift */,
+				172C3CD8283FB3DA00DBED95 /* AllMappingsView.swift */,
 				17CDDE13283FAB000045A174 /* ContentViewModule */,
 				17CDDDE6283F97430045A174 /* Assets.xcassets */,
 				17CDDDEB283F97430045A174 /* Persistence.swift */,
@@ -278,9 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				17CDDDEF283F97430045A174 /* tiny_url_client.xcdatamodeld in Sources */,
+				172C3CD9283FB3DA00DBED95 /* AllMappingsView.swift in Sources */,
 				17CDDDEC283F97430045A174 /* Persistence.swift in Sources */,
 				17CDDDE5283F97410045A174 /* ContentView.swift in Sources */,
-				17CDDE15283FAB110045A174 /* StorageManager.swift in Sources */,
 				17CDDDE3283F97410045A174 /* tiny_url_clientApp.swift in Sources */,
 				17CDDE12283F9E480045A174 /* ContentViewModel.swift in Sources */,
 			);

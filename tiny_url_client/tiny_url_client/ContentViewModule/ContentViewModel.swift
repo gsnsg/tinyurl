@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Combine
-
+import CoreData
 
 struct Response: Decodable {
     var short_url: String
@@ -38,7 +38,7 @@ class ContentViewVM: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func generateShortUrl() {
+    func generateShortUrl(with context: NSManagedObjectContext) {
         guard let url = URL(string: "http://localhost:9098/create-short-url") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -64,8 +64,7 @@ class ContentViewVM: ObservableObject {
                     let response = try JSONDecoder().decode(Response.self, from: data)
                     DispatchQueue.main.async {
                         self.shortUrl = response.short_url
-                        // save the mapping in cache
-                        StorageManager.shared.saveMapping(originalUrl: self.urlString, shortUrl: response.short_url)
+                        self.saveMapping(originalUrl: self.urlString, shortUrl: response.short_url, with: context)
                     }
                 } catch {
                     // do something
@@ -78,5 +77,17 @@ class ContentViewVM: ObservableObject {
             }
         }
         .resume()
+    }
+    
+    private func saveMapping(originalUrl: String, shortUrl: String, with context: NSManagedObjectContext) {
+        let newMapping = UrlMapping(context: context)
+        newMapping.longUrl = originalUrl
+        newMapping.shortUrl = shortUrl
+        newMapping.timestamp = Date.now
+        do {
+            try context.save()
+        } catch {
+            print("Error Savings in CoreData: \(error)")
+        }
     }
 }

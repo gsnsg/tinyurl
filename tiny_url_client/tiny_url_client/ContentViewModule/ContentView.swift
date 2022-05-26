@@ -9,10 +9,11 @@ import SwiftUI
 import Combine
 import CoreData
 
-
 struct ContentView: View {
    @StateObject var vm = ContentViewVM()
 
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -26,7 +27,7 @@ struct ContentView: View {
                 }
                 
                 Button(action: {
-                    vm.generateShortUrl()
+                    vm.generateShortUrl(with: managedObjectContext)
                 }) {
                     Text("Generate Short Url")
                         .font(.system(size: 20, weight: .regular))
@@ -42,6 +43,12 @@ struct ContentView: View {
             .alert(vm.errorMessage, isPresented: $vm.showAlert, actions: {})
             .padding()
             .navigationTitle(Text("Url Shortener 🔗"))
+            .toolbar {
+                NavigationLink(destination: AllMappingsView()) {
+                    Image(systemName: "clock.arrow.circlepath")
+                }
+
+            }
         }
         
     }
@@ -50,6 +57,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
