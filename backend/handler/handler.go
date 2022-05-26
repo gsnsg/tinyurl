@@ -3,6 +3,7 @@ package handler
 import (
 	"log"
 	"net/http"
+	"net/url"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gsnsg/tinyurl-go/cache"
@@ -16,12 +17,22 @@ type UrlCreationRequest struct {
 	UserId  string `json:"user_id" binding:"required"`
 }
 
+func IsUrl(str string) bool {
+	u, err := url.Parse(str)
+	return err == nil && u.Scheme != "" && u.Host != ""
+}
+
 func CreateShortUrl(c *gin.Context) {
 	var creationRequest UrlCreationRequest
 
 	// Send Bad Request to user if we don't get url and user id
 	if err := c.ShouldBindJSON(&creationRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if !IsUrl(creationRequest.LongUrl) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad Url, Make sure that the url has the scheme and host"})
 		return
 	}
 
