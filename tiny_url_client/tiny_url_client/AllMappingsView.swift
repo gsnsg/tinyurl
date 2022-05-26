@@ -14,19 +14,17 @@ struct AllMappingsView: View {
     ]) var mappings: FetchedResults<UrlMapping>
     
     var body: some View {
-        VStack(alignment: .leading) {
-            List(mappings) { mapping  in
-                if let shortUrl = mapping.shortUrl,
-                   let longUrl = mapping.longUrl,
-                   let timestamp = mapping.timestamp {
-                    RowView(shortUrl: shortUrl, longUrl: longUrl, createdAt: timestamp)
-                        .padding(.vertical, 10)
+        ScrollView {
+            VStack {
+                ForEach(mappings, id: \.timestamp) { mapping  in
+                    if let shortUrl = mapping.shortUrl,
+                       let longUrl = mapping.longUrl,
+                       let timestamp = mapping.timestamp {
+                        RowView(shortUrl: shortUrl, longUrl: longUrl, createdAt: timestamp)
+                    }
                 }
             }
-            .listStyle(GroupedListStyle())
         }
-        .padding(.horizontal, 10)
-        Spacer()
     }
 }
 
@@ -36,17 +34,27 @@ struct RowView: View {
     let createdAt: Date
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Short Link").fontWeight(.semibold)
-            Link(destination: URL(string: shortUrl)!) {
-                Text(shortUrl)
-            }.padding(.bottom, 10)
-            Text("Original Link").fontWeight(.semibold).lineLimit(1)
-            Link(destination: URL(string: longUrl)!) {
-                Text(longUrl)
-            }.padding(.bottom, 10)
-            Text("Created at: \(formattedDate(date: createdAt))")
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Short Link").fontWeight(.semibold)
+                    .padding(.top, 15)
+                Link(destination: URL(string: shortUrl)!) {
+                    Text(shortUrl)
+                }.padding(.bottom, 10)
+                Text("Original Link").fontWeight(.semibold)
+                Link(destination: URL(string: longUrl)!) {
+                    Text(longUrl).lineLimit(0)
+                }.padding(.bottom, 10)
+                Text("Created at: \(formattedDate(date: createdAt))")
+                    .padding(.bottom, 15)
+            }
+            .padding(.horizontal, 10)
+            Spacer()
         }
+        .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.black, lineWidth: 1))
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 20)
     }
     
     private func formattedDate(date: Date) -> String {
