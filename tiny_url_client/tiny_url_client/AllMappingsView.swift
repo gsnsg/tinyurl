@@ -20,7 +20,7 @@ struct AllMappingsView: View {
                    let longUrl = mapping.longUrl,
                    let timestamp = mapping.timestamp {
                     RowView(shortUrl: shortUrl, longUrl: longUrl, createdAt: timestamp)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 10)
                 }
             }
         }
@@ -43,15 +43,16 @@ struct RowView: View {
             Link(destination: URL(string: longUrl)!) {
                 Text(longUrl)
             }.padding(.bottom, 10)
-            Text("Created at: \(formattedDate(date: createdAt))\n\n")
+            Text("Created at: \(formattedDate(date: createdAt))")
         }
-        .padding(.horizontal, 10)
+        .padding()
         .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.blue, lineWidth: 1))
     }
     
     private func formattedDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
+        print("Date Date: ", formatter.string(from: date))
         return formatter.string(from: date)
     }
 }
