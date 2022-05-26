@@ -12,6 +12,5 @@ func handleStartPath(c *gin.Context) {
 }
 
 func main() {
-
-	fmt.Println("Firing up server....")
+	fmt.Println("Firing up services!")
 }

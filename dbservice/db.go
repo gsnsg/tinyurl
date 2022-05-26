@@ -14,16 +14,12 @@ type DBService struct {
 
 var dbService = &DBService{}
 
-func checkError(err error) {
-	if err != nil {
-		panic(err.Error())
-	}
-}
-
 func InitializeDB() *sql.DB {
 	dbInfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", constants.DB_USER, constants.DB_PASSWORD, constants.DB_NAME)
 	db, err := sql.Open("postgres", dbInfo)
-	checkError(err)
+	if err != nil {
+		panic(err.Error())
+	}
 	fmt.Println("DB Initialized")
 	dbService.db = db
 	return db
@@ -31,7 +27,6 @@ func InitializeDB() *sql.DB {
 
 func GetOriginalUrl(shortUrl string) (string, error) {
 	dbQuery := "SELECT long_url FROM urls WHERE short_url = $1;"
-	fmt.Printf("Executing Query : %s\n", dbQuery)
 	var originalUrl string
 	err := dbService.db.QueryRow(dbQuery, shortUrl).Scan(&originalUrl)
 	if err != nil {
@@ -52,5 +47,7 @@ func InsertUrl(shortUrl string, longUrl string) error {
 func TruncateDB() {
 	dbQuery := "TRUNCATE urls;"
 	_, err := dbService.db.Exec(dbQuery)
-	checkError(err)
+	if err != nil {
+		panic(err.Error())
+	}
 }
